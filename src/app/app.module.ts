@@ -7,10 +7,12 @@ import { AppComponent } from './app.component';
 import { PostsComponent } from './posts/posts.component';
 
 import { PostsService } from './core/service/posts.service';
+import { LoginComponent } from './login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
-    PostsComponent
+    PostsComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
