@@ -8,6 +8,9 @@ const api = require('./routes/api')();
 
 const app = express();
 
+const cookieParser = require('cookie-parser');
+const logger = require('./logger');
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -18,6 +21,10 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../dist/index.html'));
 });
 
+logger.attachTo(app);
+
+app.use(cookieParser());
+
 const port = process.env.PORT || '3000';
 app.set('port', port);
 
@@ -27,7 +34,12 @@ Promise.resolve()
     .then(() => db.connect('mongodb://localhost/MedDb'))
     .then((database) => {
         const data = require('./data').initData(database);
-        require('./config').authConfig(app, data, database, 'Res Med');
+
+        return { data: data, db: database }
+        // require('./config').authConfig(app, data, database, 'Res Med');
+    })
+    .then((settings) => {
+        // require('./config').authConfig(app, settings.data, settings.db, 'Res Med');
     })
     .then(() => {
 

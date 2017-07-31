@@ -2,7 +2,7 @@ const session = require('express-session');
 const passport = require('passport');
 const { Strategy } = require('passport-local');
 const MongoStore = require('connect-mongo')(session);
-const encryption = require('../utils/encryption');
+const encryption = require('../../utils/encryption');
 
 const configAuth = (app, { auth }, db, secret) => {
     passport.use(new Strategy((username, password, done) => {
