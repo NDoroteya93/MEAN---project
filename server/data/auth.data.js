@@ -19,7 +19,7 @@ const getData = (db) => {
                 });
         },
 
-        signUp(newUser) {
+        register(newUser) {
             return this.findBy({ username: newUser.username })
                 .then((user) => {
                     if (user) {

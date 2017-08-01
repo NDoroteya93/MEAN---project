@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Http } from '@angular/http';
 
+import { contentHeaders } from '../_helpers/headers';
 import { AuthenticationService } from '../core/service/authentication.service';
 
 import { User } from '../_models/user';
@@ -22,6 +24,7 @@ export class LoginComponent implements OnInit {
     fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
+    private http: Http,
     private authenticationService: AuthenticationService
   ) {
 
@@ -43,12 +46,23 @@ export class LoginComponent implements OnInit {
 
 
 
-  submitForm(value: any): void {
+  login(value: any): void {
     console.log(value);
+    this.http.post('http://localhost:3005/sessions/create', value, { headers: contentHeaders })
+      .subscribe(
+      response => {
+        localStorage.setItem('id_token', response.json().id_token);
+        this.router.navigate(['home']);
+      },
+      error => {
+        console.log(error.text());
+      });
     // this.userService.addCar(value);
     this.loading = true;
-    this.authenticationService.login(value.username, value.password)
-    this.router.navigate(['/dashboard']);
+  }
+
+  signup() {
+
   }
 
 

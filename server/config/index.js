@@ -1,1 +1,1 @@
-module.exports = { authConfig: require('./auth.config') }
+module.exports = { authConfig: require('./auth.config') };
