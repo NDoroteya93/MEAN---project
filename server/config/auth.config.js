@@ -1,15 +1,11 @@
-const session = require('express-session');
-const passport = require('passport');
-const { Strategy } = require('passport-local');
-const MongoStore = require('connect-mongo')(session);
-const encryption = require('../../utils/encryption');
+// const session = require('express-session');
+// const MongoStore = require('connect-mongo')(session);
 
+const config = require('./config.json');
+const jwt = require('jsonwebtoken');
+const _ = require('lodash');
 
 const createToken = (user) => {
-    const config = require('./config.json');
-    const jwt = require('jsonwebtoken');
-    const _ = require('lodash');
-
     return jwt.sign(_.omit(user, 'password'),
         config.secret, { expiresInMinutes: 60 * 5 });
 };

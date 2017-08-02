@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['home']);
       },
       error => {
-        console.log(error.text());
+        console.log(error);
       });
     // this.userService.addCar(value);
     this.loading = true;

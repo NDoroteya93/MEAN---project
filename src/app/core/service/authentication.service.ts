@@ -4,13 +4,13 @@ import { tokenNotExpired } from 'angular2-jwt';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/map'
+import Auth0Lock from "auth0-lock";
 
-declare let Auth0Lock: any;
 
 @Injectable()
 export class AuthenticationService {
 
-  lock = new Auth0Lock('YOUR-AUTH0-CLIENT-ID', 'YOUR-AUTH0-DOMAIN.auth0.com');
+  lock = new Auth0Lock('6lDdhUx34eh4sfYAqAaP4nyJNceGM81A', 'nikolova.auth0.com');
 
   constructor(private http: Http, private router: Router) {
     this.lock.on('authenticated', (authResult: any) => {
@@ -18,7 +18,7 @@ export class AuthenticationService {
 
       this.lock.getProfile(authResult.idToken, (error: any, profile: any) => {
         if (error) {
-          console.log(error);
+          // console.log(error);
         }
 
         localStorage.setItem('profile', JSON.stringify(profile));

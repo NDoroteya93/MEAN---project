@@ -1,9 +1,7 @@
 const { Router } = require('express');
-const passport = require('passport');
 const _ = require('lodash');
-const jwt = require('jsonwebtoken');
 const encrypt = require('../utils/encryption.js');
-const createToken = require('../config');;
+const createToken = require('../config');
 
 const apiRouter = (data) => {
     const router = new Router();
@@ -67,7 +65,7 @@ const apiRouter = (data) => {
         }
 
         res.status(201).send({
-            id_token: createToken(user),
+            id_token: createToken.authConfig(user),
         });
     });
 

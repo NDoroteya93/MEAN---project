@@ -6,7 +6,6 @@ const initApp = (data, db) => {
     const path = require('path');
     const http = require('http');
     const bodyParser = require('body-parser');
-    const api = require('./routes/api.router')();
     const dotenv = require('dotenv');
     const cors = require('cors');
     const errorhandler = require('errorhandler');
