@@ -1,9 +1,17 @@
-const crypto = require('crypto');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 module.exports = {
-    generateSalt: () =>
-        crypto.randomBytes(128).toString('base64'),
-
-    generateHashedPassword: (salt, pwd) =>
-        crypto.createHmac('sha256', salt).update(pwd).digest('hex'),
+    generateHashedPassword: (pwd) => {
+        return bcrypt.hash(pwd, saltRounds)
+            .then((hash) => {
+                return hash;
+            });
+    },
+    comparePassword: (currentUser, indbUser) => {
+        return bcrypt.compare(currentUser, indbUser)
+            .then((res) => {
+                return res;
+            });
+    },
 };

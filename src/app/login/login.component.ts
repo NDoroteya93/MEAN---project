@@ -4,7 +4,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Http } from '@angular/http';
 
 import { contentHeaders } from '../_helpers/headers';
-import { AuthenticationService } from '../core/service/authentication.service';
+import { AuthService } from '../core/service/auth.service';
 
 import { User } from '../_models/user';
 
@@ -24,15 +24,15 @@ export class LoginComponent implements OnInit {
     fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private http: Http,
-    private authenticationService: AuthenticationService
+    public http: Http,
+    private auth: AuthService
   ) {
 
     // reset login status
-    this.authenticationService.logout();
+    // this.auth.logout();
 
     // get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    // this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
 
     let user = new User({
       'username': [null, Validators.required],
@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
 
   login(value: any): void {
     console.log(value);
-    this.http.post('http://localhost:3005/sessions/create', value, { headers: contentHeaders })
+    this.http.post('http://localhost:3005/api/sessions/create', value, { headers: contentHeaders })
       .subscribe(
       response => {
         localStorage.setItem('id_token', response.json().id_token);
@@ -59,6 +59,10 @@ export class LoginComponent implements OnInit {
       });
     // this.userService.addCar(value);
     this.loading = true;
+
+    if (!this.auth.loggedIn()) {
+      this.auth.login();
+    }
   }
 
   signup() {

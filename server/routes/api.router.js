@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const _ = require('lodash');
 const encrypt = require('../utils/encryption.js');
-const createToken = require('../config');
+const { createToken } = require('../config/token.config');
 
 const apiRouter = (data) => {
     const router = new Router();
@@ -9,41 +9,34 @@ const apiRouter = (data) => {
         res.send('api works');
     });
 
-    // router.route('/login')
-    //     .get((req, res) => {
-    //         return res.json(req.user);
-    //     })
-    //     .post(passport.authenticate('local', {
-    //         successRedirect: '/',
-    //         failureRedirect: '/login',
-    //         failureFlash: true,
-    //     }));
-
+    router.get('/users', (req, res) => {
+        return data.auth.getAll()
+            .then((users) => {
+                return res.json(users);
+            });
+    });
     router.post('/users', (req, res) => {
         const user = req.body;
-        const salt = encrypt.generateSalt();
+
+        // !TODO: Validation
         if (!req.body.username || !req.body.password) {
             return res.status(400)
                 .send('You must send the username and the password');
         }
 
-        if (data.findBy({ username: user.username })) {
-            return res.status(400)
-                .send('A user with that username already exist');
-        }
         const profile = {
             username: user.username,
             password: encrypt
-                .generateHashedPassword(salt, user.password),
+                .generateHashedPassword(user.password),
             firstname: user.firstname,
             lastname: user.lastname,
         };
-
-        data.register(profile);
-
-        return res.status(201).send({
-            id_token: createToken.authConfig(profile),
-        });
+        return data.auth.register(profile)
+            .then((result) => {
+                return res.status(201).send({
+                    id_token: createToken(result),
+                });
+            });
     });
 
     router.post('/sessions/create', (req, res) => {
@@ -53,7 +46,7 @@ const apiRouter = (data) => {
                 .send('You must send the username and the password');
         }
 
-        const user = data.findB({ username: body.username });
+        const user = data.auth.findBy({ username: body.username });
         if (!user) {
             return res.status(401)
                 .send('The username or password don\'t match');
@@ -64,9 +57,30 @@ const apiRouter = (data) => {
                 .send('The username or password don\'t match');
         }
 
-        res.status(201).send({
-            id_token: createToken.authConfig(user),
+        return res.status(201).send({
+            id_token: createToken(user),
         });
+    });
+
+    router.post('/authenticate', (req, res) => {
+        const user = req.body;
+        data.auth.findBy({ username: user.username })
+            .then((result) => {
+                if (!result) {
+                    return res.status(404).json({ error: 'user not found' });
+                }
+
+                if (!encrypt.comparePassword(user.password, result.password)) {
+                    return res.status(401)
+                        .json({ error: 'Incorrect password' });
+                }
+
+                return res.json({
+                    message: 'succesfully authenticated',
+                    id_token: createToken(result),
+                });
+            });
+
     });
 
     return router;
