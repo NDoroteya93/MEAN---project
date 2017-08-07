@@ -5,13 +5,7 @@ const getData = (db) => {
     const collection = db.collection('users');
     return {
         findBy(props) {
-            return collection.findOne(props, (err, result) => {
-                if (err) {
-                    console.log('Error: ' + err);
-                }
-
-                return result;
-            });
+            return collection.findOne(props);
         },
         getById(id) {
             return collection.findOne({ _id: new ObjectID(id) })

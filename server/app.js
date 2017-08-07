@@ -5,22 +5,22 @@ const express = require('express');
 const path = require('path');
 const http = require('http');
 const bodyParser = require('body-parser');
-const cors = require('cors');
 const errorhandler = require('errorhandler');
 const cookieParser = require('cookie-parser');
 const logger = require('./logger');
 const { anonymousRouter } = require('./routes').anonymousRouter;
-const { protectedRouter } = require('./routes').protectedRouter;
+// const { protectedRouter } = require('./routes').protectedRouter;
 const { apiRouter } = require('./routes').apiRouter;
 
 const initApp = (data, db) => {
+    const cors = require('cors');
 
     const app = express();
     const server = http.createServer(app);
+    app.use(cors());
 
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));
-    app.use(cors());
 
     app.use((err, req, res, next) => {
         if (err.name === 'StatusError') {
@@ -38,7 +38,7 @@ const initApp = (data, db) => {
     app.use(express.static(path.join(__dirname, '../dist')));
 
     app.use(anonymousRouter());
-    app.use(protectedRouter());
+    // app.use(protectedRouter());
     app.use('/api', apiRouter(data));
 
     app.get('*', (req, res) => {

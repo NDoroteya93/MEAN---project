@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Http, Request, RequestOptions, RequestMethod, Response } from '@angular/http';
 import { contentHeaders } from '../../_helpers/headers';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/throw';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class ApiService {
 
   private baseUrl = environment.apiUrl;
 
-  constructor(private http: Http) { }
+  constructor(
+    private http: Http,
+    private auth: AuthService
+  ) { }
 
   get(url: string) {
     return this.request(url, RequestMethod.Get);
@@ -31,9 +32,10 @@ export class ApiService {
   }
 
   request(url: string, method: RequestMethod, body?: Object) {
+    contentHeaders.append('Authorization', `Bearer ${this.auth.getToken()}`);
 
     const requestOptions = new RequestOptions({
-      url: `${this.baseUrl}/${url}`,
+      url: `api/${url}`,
       method: method,
       headers: contentHeaders
     });

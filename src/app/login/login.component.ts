@@ -5,6 +5,7 @@ import { Http } from '@angular/http';
 
 import { contentHeaders } from '../_helpers/headers';
 import { AuthService } from '../core/service/auth.service';
+import { ApiService } from '../core/service/api.service';
 
 import { User } from '../_models/user';
 
@@ -13,7 +14,7 @@ import { User } from '../_models/user';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
   complexForm: FormGroup;
   model: any = {};
@@ -21,11 +22,11 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
 
   constructor(
-    fb: FormBuilder,
-    private route: ActivatedRoute,
+    private api: ApiService,
+    private auth: AuthService,
     private router: Router,
-    public http: Http,
-    private auth: AuthService
+    private route: ActivatedRoute,
+    fb: FormBuilder
   ) {
 
     // reset login status
@@ -36,9 +37,7 @@ export class LoginComponent implements OnInit {
 
     let user = new User({
       'username': [null, Validators.required],
-      'password': [null, Validators.required],
-      'firstName': [null],
-      'lastName': [null],
+      'password': [null, Validators.required]
     });
 
     this.complexForm = fb.group(user);
@@ -47,22 +46,28 @@ export class LoginComponent implements OnInit {
 
 
   login(value: any): void {
-    console.log(value);
-    this.http.post('http://localhost:3005/api/sessions/create', value, { headers: contentHeaders })
-      .subscribe(
-      response => {
-        localStorage.setItem('id_token', response.json().id_token);
+    this.api.post('authenticate', value)
+      .subscribe(data => {
+        console.log(data);
+        this.auth.setToken(data.token);
         this.router.navigate(['home']);
-      },
-      error => {
-        console.log(error);
       });
-    // this.userService.addCar(value);
-    this.loading = true;
 
-    if (!this.auth.loggedIn()) {
-      this.auth.login();
-    }
+    // this.http.post('http://localhost:3005/api/sessions/create', value, { headers: contentHeaders })
+    //   .subscribe(
+    //   response => {
+    //     localStorage.setItem('id_token', response.json().id_token);
+    //     this.router.navigate(['home']);
+    //   },
+    //   error => {
+    //     console.log(error);
+    //   });
+    // // this.userService.addCar(value);
+    // this.loading = true;
+
+    // if (!this.auth.loggedIn()) {
+    //   this.auth.login();
+    // }
   }
 
   signup() {
@@ -70,8 +75,8 @@ export class LoginComponent implements OnInit {
   }
 
 
-  ngOnInit() {
-  }
+  // ngOnInit() {
+  // }
 
 
 
