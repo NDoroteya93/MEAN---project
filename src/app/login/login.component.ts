@@ -46,7 +46,7 @@ export class LoginComponent {
 
 
   login(value: any): void {
-    this.api.post('authenticate', value)
+    this.api.post('auth', value)
       .subscribe(data => {
         console.log(data);
         this.auth.setToken(data.token);

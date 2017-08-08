@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response, Request, RequestOptions, RequestMethod } from '@angular/http';
+import { Http, Headers, Response, Request, RequestOptions, RequestMethod, URLSearchParams, Jsonp } from '@angular/http';
 import { tokenNotExpired } from 'angular2-jwt';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
@@ -9,7 +9,7 @@ import * as auth0 from 'auth0-js';
 
 @Injectable()
 export class AuthService {
-  storageKey: string = 'contact-manager-jwt';
+  storageKey: string = 'med-token';
 
   constructor(private router: Router) {
   }
@@ -19,7 +19,8 @@ export class AuthService {
   }
 
   getToken() {
-    return localStorage.getItem(this.storageKey);
+    let token = localStorage.getItem(this.storageKey);
+    return token;
   }
 
   login() {

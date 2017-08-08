@@ -35,10 +35,12 @@ export class ApiService {
     contentHeaders.append('Authorization', `Bearer ${this.auth.getToken()}`);
 
     const requestOptions = new RequestOptions({
-      url: `api/${url}`,
+      url: `${this.baseUrl}/${url}`,
       method: method,
       headers: contentHeaders
     });
+
+    console.log(requestOptions);
 
     if (body) {
       requestOptions.body = body;

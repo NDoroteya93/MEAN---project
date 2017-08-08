@@ -11,7 +11,7 @@ import { AlertComponent } from './_directives/alert.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 import { AuthService } from './core/service/auth.service';
-import { AlertService } from './core/service/alert.service';
+import { AlertService } from './core/service/alert/alert.service';
 import { ApiService } from './core/service/api.service';
 // import { customHttpProvider } from './_helpers/custom-http';
 
