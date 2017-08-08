@@ -3,11 +3,11 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Http } from '@angular/http';
 
-import { contentHeaders } from '../_helpers/headers';
-import { AuthService } from '../core/service/auth.service';
-import { ApiService } from '../core/service/api.service';
+import { contentHeaders } from '../_helpers';
+import { AuthService } from '../core/service/auth/auth.service';
+import { ApiService } from '../core/service/api/api.service';
 
-import { User } from '../_models/user';
+import { User } from '../_models';
 
 @Component({
   selector: 'app-login',
