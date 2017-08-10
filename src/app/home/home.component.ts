@@ -31,22 +31,22 @@ export class HomeComponent implements OnInit {
     this.decodedJwt = this.jwtHelper.decodeToken(this.jwt);
     this.jwtDate = this.jwtHelper.getTokenExpirationDate(this.jwt);
     this.jwtExpired = this.jwtHelper.isTokenExpired(this.jwt);
+
+    console.log(this.decodedJwt);
+
+    this.userService.getCurrentUser()
+      .subscribe(
+      data => {
+        console.log(data);
+        this.currentUser = data;
+      },
+      error => {
+        console.log(error);
+      });
   }
 
   ngOnInit() {
   }
 
-  getUsers(e): void {
-    this.userService.getCurrentUser()
-      .subscribe(
-      data => {
-        // this.router.navigate(['home']);
-      },
-      error => {
-        // this.alert.error(error.error);
-        console.log(error);
-      }
-      );
-  }
   // tslint:disable-next-line:eofline
 }

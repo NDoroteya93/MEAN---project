@@ -35,13 +35,8 @@ export class ApiService {
   }
 
   request(url: string, method: RequestMethod, body?: Object) {
-    // tslint:disable-next-line:no-debugger
-    debugger;
     const headersRequest = contentHeaders;
     headersRequest.set('Authorization', `${this.auth.getToken()}`);
-    // contentHeaders.set('Authorization', null);
-
-    // contentHeaders.set('Authorization', `${this.auth.getToken()}`);
 
     const requestOptions = new RequestOptions({
       url: `${this.baseUrl}/${url}`,
@@ -57,7 +52,6 @@ export class ApiService {
 
     return this.http.request(request)
       .map((res: Response) => {
-        console.log(res);
         return res.json();
       })
       .catch((res: Response) => this.onRequestError(res));
@@ -71,8 +65,6 @@ export class ApiService {
       statusCode: statusCode,
       error: body.error
     };
-
-    console.log(error);
 
     return Observable.throw(error);
   }

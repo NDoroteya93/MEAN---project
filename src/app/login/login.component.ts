@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Http } from '@angular/http';
 
-import { contentHeaders } from '../_helpers';
 import { AuthService } from '../core/service/auth/auth.service';
 import { ApiService } from '../core/service/api/api.service';
 import { AlertService } from '../core/service/alert';
@@ -18,7 +16,6 @@ import { User } from '../_models';
 export class LoginComponent implements OnInit {
 
   complexForm: FormGroup;
-  model: any = {};
   loading = false;
   returnUrl: string;
 
@@ -70,7 +67,6 @@ export class LoginComponent implements OnInit {
         // this.router.navigate(['home']);
       },
       error => {
-        // this.alert.error(error.error);
         console.log(error);
       }
       );
