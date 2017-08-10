@@ -10,12 +10,19 @@ import { LoginComponent } from './login/login.component';
 import { AlertComponent } from './_directives';
 import { HomeComponent } from './home/home.component';
 
-import { AUTH_PROVIDERS } from 'angular2-jwt';
 import { AuthService } from './core/service/auth';
 import { AuthGuard } from './_guard';
 import { AlertService } from './core/service/alert';
 import { ApiService } from './core/service/api';
 import { UserService } from './core/service/user';
+
+import { Http, RequestOptions } from '@angular/http';
+import { AuthHttp, AuthConfig } from 'angular2-jwt';
+
+export function authHttpServiceFactory(http: Http, options: RequestOptions) {
+  return new AuthHttp(new AuthConfig(), http, options);
+}
+
 
 @NgModule({
   declarations: [
@@ -32,7 +39,11 @@ import { UserService } from './core/service/user';
     HttpModule
   ],
   providers: [
-    ...AUTH_PROVIDERS,
+    {
+      provide: AuthHttp,
+      useFactory: authHttpServiceFactory,
+      deps: [Http, RequestOptions]
+    },
     ApiService,
     AuthService,
     AlertService,

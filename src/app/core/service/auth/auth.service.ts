@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { tokenNotExpired } from 'angular2-jwt';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
+import 'rxjs/add/operator/map';
+
 import { Router } from '@angular/router';
 // import Auth0Lock from "auth0-lock";
 // import * as auth0 from 'auth0-js';

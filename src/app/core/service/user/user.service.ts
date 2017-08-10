@@ -12,8 +12,7 @@ export class UserService {
 
   }
   getAll() {
-    return this.api.get('users')
-      .subscribe(users => console.log(users));
+    return this.api.get('users');
   }
 
   getById(id: number) {

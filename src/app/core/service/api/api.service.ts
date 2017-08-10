@@ -1,19 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Http, Request, RequestOptions, RequestMethod, Response } from '@angular/http';
 import { contentHeaders } from '../../../_helpers';
-import { Observable } from 'rxjs';
+
 import { environment } from '../../../../environments/environment';
 import { AuthService } from '../auth/auth.service';
+
+import { Observable } from 'rxjs/Rx';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class ApiService {
 
   private baseUrl = environment.apiUrl;
-
   constructor(
     private http: Http,
     private auth: AuthService
-  ) { }
+  ) {
+  }
 
   get(url: string) {
     return this.request(url, RequestMethod.Get);
@@ -32,13 +35,18 @@ export class ApiService {
   }
 
   request(url: string, method: RequestMethod, body?: Object) {
+    // tslint:disable-next-line:no-debugger
     debugger;
-    contentHeaders.append('Authorization', `Bearer ${this.auth.getToken()}`);
+    const headersRequest = contentHeaders;
+    headersRequest.set('Authorization', `${this.auth.getToken()}`);
+    // contentHeaders.set('Authorization', null);
+
+    // contentHeaders.set('Authorization', `${this.auth.getToken()}`);
 
     const requestOptions = new RequestOptions({
       url: `${this.baseUrl}/${url}`,
       method: method,
-      headers: contentHeaders
+      headers: headersRequest
     });
 
     if (body) {
@@ -48,7 +56,10 @@ export class ApiService {
     const request = new Request(requestOptions);
 
     return this.http.request(request)
-      .map((res: Response) => res.json())
+      .map((res: Response) => {
+        console.log(res);
+        return res.json();
+      })
       .catch((res: Response) => this.onRequestError(res));
   }
 
@@ -60,6 +71,8 @@ export class ApiService {
       statusCode: statusCode,
       error: body.error
     };
+
+    console.log(error);
 
     return Observable.throw(error);
   }

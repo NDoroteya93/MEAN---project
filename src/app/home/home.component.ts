@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthHttp, JwtHelper } from 'angular2-jwt';
-import { ApiService } from '../core/service/api';
+import { UserService } from '../core/service/user';
 
 import { User } from '../_models/index';
 
@@ -24,23 +24,29 @@ export class HomeComponent implements OnInit {
   constructor(
     public router: Router,
     public authHttp: AuthHttp,
-    private api: ApiService
+    private userService: UserService
   ) {
 
     this.jwt = localStorage.getItem('labs-token');
     this.decodedJwt = this.jwtHelper.decodeToken(this.jwt);
     this.jwtDate = this.jwtHelper.getTokenExpirationDate(this.jwt);
     this.jwtExpired = this.jwtHelper.isTokenExpired(this.jwt);
-    this.api.get('user')
-      .subscribe
-      (
-      data => console.log(data),
-      error => console.log(error)
-      )
   }
 
   ngOnInit() {
   }
 
-
+  getUsers(e): void {
+    this.userService.getCurrentUser()
+      .subscribe(
+      data => {
+        // this.router.navigate(['home']);
+      },
+      error => {
+        // this.alert.error(error.error);
+        console.log(error);
+      }
+      );
+  }
+  // tslint:disable-next-line:eofline
 }

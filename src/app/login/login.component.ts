@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
     fb: FormBuilder
   ) {
 
-    let user = new User({
+    const user = new User({
       'username': [null, Validators.required],
       'password': [null, Validators.required]
     });
@@ -48,13 +48,11 @@ export class LoginComponent implements OnInit {
 
 
 
-  login(value: any): void {
+  login(value: any, event): void {
     this.loading = true;
     this.api.post('auth', JSON.stringify(value))
       .subscribe(
       data => {
-        console.log(data);
-        console.log(value);
         this.auth.setToken(data.token);
         this.router.navigate(['home']);
       },
@@ -63,22 +61,19 @@ export class LoginComponent implements OnInit {
         this.loading = false;
       }
       );
+  }
 
-    // this.http.post('http://localhost:3005/api/sessions/create', value, { headers: contentHeaders })
-    //   .subscribe(
-    //   response => {
-    //     localStorage.setItem('id_token', response.json().id_token);
-    //     this.router.navigate(['home']);
-    //   },
-    //   error => {
-    //     console.log(error);
-    //   });
-    // // this.userService.addCar(value);
-    // this.loading = true;
-
-    // if (!this.auth.loggedIn()) {
-    //   this.auth.login();
-    // }
+  getUsers(): void {
+    this.api.get('user')
+      .subscribe(
+      data => {
+        // this.router.navigate(['home']);
+      },
+      error => {
+        // this.alert.error(error.error);
+        console.log(error);
+      }
+      );
   }
 
   signup() {
