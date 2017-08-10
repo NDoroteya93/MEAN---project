@@ -17,8 +17,7 @@ export class AuthService {
   }
 
   getToken() {
-    let token = localStorage.getItem(this.storageKey);
-    return token;
+    return localStorage.getItem(this.storageKey);
   }
 
   login(username: string) {

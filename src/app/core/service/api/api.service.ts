@@ -32,6 +32,7 @@ export class ApiService {
   }
 
   request(url: string, method: RequestMethod, body?: Object) {
+    debugger;
     contentHeaders.append('Authorization', `Bearer ${this.auth.getToken()}`);
 
     const requestOptions = new RequestOptions({
@@ -39,7 +40,6 @@ export class ApiService {
       method: method,
       headers: contentHeaders
     });
-
 
     if (body) {
       requestOptions.body = body;

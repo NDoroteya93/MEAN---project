@@ -53,6 +53,8 @@ export class LoginComponent implements OnInit {
     this.api.post('auth', JSON.stringify(value))
       .subscribe(
       data => {
+        console.log(data);
+        console.log(value);
         this.auth.setToken(data.token);
         this.router.navigate(['home']);
       },

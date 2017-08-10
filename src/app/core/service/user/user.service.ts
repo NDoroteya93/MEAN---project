@@ -7,6 +7,10 @@ export class UserService {
 
   constructor(private api: ApiService) { }
 
+  getCurrentUser() {
+    return this.api.get('user');
+
+  }
   getAll() {
     return this.api.get('users')
       .subscribe(users => console.log(users));
