@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { tokenNotExpired } from 'angular2-jwt';
+import { AuthService } from '../core/service/auth';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
 
-    constructor(private router: Router) { }
+    constructor(
+        private router: Router,
+        private auth: AuthService
+    ) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        if (localStorage.getItem('profile')) {
-            if (tokenNotExpired()) {
-                return true;
-            }
+        if (this.auth.getToken) {
+            return true;
         }
 
         // not logged in so redirect to login page with the return url

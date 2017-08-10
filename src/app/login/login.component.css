@@ -1,18 +1,7 @@
-.progress-bar {
-    color: #333;
-}
-
-
-/*
-Reference:
-http://www.bootstrapzen.com/item/135/simple-login-form-logo/
-*/
-
-* {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    outline: none;
+.container {
+    height: 100%;
+    max-height: 100vh;
+    overflow: hidden;
 }
 
 .form-control {

@@ -1,15 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response, Request, RequestOptions, RequestMethod, URLSearchParams, Jsonp } from '@angular/http';
 import { tokenNotExpired } from 'angular2-jwt';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
-import 'rxjs/add/operator/map'
-import Auth0Lock from "auth0-lock";
-import * as auth0 from 'auth0-js';
+// import Auth0Lock from "auth0-lock";
+// import * as auth0 from 'auth0-js';
 
 @Injectable()
 export class AuthService {
-  storageKey: string = 'med-token';
+  storageKey: string = 'labs-token';
 
   constructor(private router: Router) {
   }
@@ -23,7 +21,7 @@ export class AuthService {
     return token;
   }
 
-  login() {
+  login(username: string) {
   }
 
   logout() {

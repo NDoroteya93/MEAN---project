@@ -40,7 +40,6 @@ export class ApiService {
       headers: contentHeaders
     });
 
-    console.log(requestOptions);
 
     if (body) {
       requestOptions.body = body;
@@ -61,8 +60,6 @@ export class ApiService {
       statusCode: statusCode,
       error: body.error
     };
-
-    console.log(error);
 
     return Observable.throw(error);
   }

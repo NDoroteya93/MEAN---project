@@ -21,9 +21,6 @@ body {
     overflow-y: hidden;
 }
 
-
-/************** 3. Theme Header Style Start Here ********************/
-
 #app-header {
     background: #fff none repeat scroll 0 0;
     margin: 0;
@@ -71,51 +68,45 @@ body {
 
 .right-header {
     background: #fff none repeat scroll 0 0;
-    height: 50px;
-    line-height: 50px;
     z-index: 101;
     margin-left: 230px;
     position: relative;
+    border-bottom: 1px solid #ccc;
 }
 
-.right-header>ul {
-    display: block;
-    margin: 0;
-    padding: 0;
+.right-header ul.left-navbar {
+    width: 20%;
 }
 
-.right-header li {
-    display: inline;
-    float: left;
+.right-header ul.navbar-right li {
+    border-left: 1px solid #ccc;
 }
 
-.right-header>li a {
-    color: #7e7e7e;
-    padding: 17px 15px;
+.right-header ul.left-navbar li {
+    width: 100%;
+    border-right: 1px solid #ccc;
+    padding: 3px 0;
+}
+
+.right-header ul.left-navbar li input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.right-header ul.left-navbar li .form-control-feedback {
+    height: 50px;
+    line-height: 50px;
+    font-weight: bold;
+    font-size: 19px;
 }
 
 .right-header li a:hover,
 .right-header li a:focus {
     background: #efefef;
     text-decoration: none;
-}
-
-.right-header a i {
-    color: #7e7e7e;
-    font-size: 14px;
-}
-
-.right-navbar {
-    float: right;
-    padding-right: 7px !important;
-}
-
-.right-navbar li a i {
-    font-size: 14px;
-}
-
-.left-navbar>li:first-child {
-    padding-left: 50px;
 }
 
 .hoe-sidebar-toggle a:after {
@@ -172,6 +163,8 @@ body {
     background: #fff;
     overflow: hidden;
     height: 100px;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
 }
 
 #left-panel .logo img {
@@ -436,11 +429,6 @@ body {
     position: relative;
 }
 
-#app-header.hoe-minimized-lpanel>.right-header[hoe-position-type="fixed"] {
-    margin-left: 50px;
-    padding-right: 50px;
-}
-
 #app-header.hoe-minimized-lpanel>.left-header {
     width: 50px;
     overflow: hidden;
@@ -453,11 +441,6 @@ body {
 
 #app-header.hoe-minimized-lpanel>.left-header>a>span {
     display: none;
-}
-
-#app-header.hoe-minimized-lpanel>.right-header {
-    margin-left: 50px;
-    padding-right: 0px;
 }
 
 .hoe-minimized-lpanel #left-panel {
@@ -650,24 +633,8 @@ body {
     top: 100px;
 }
 
-#app-wrapper[device-type="phone"] .right-header {
-    width: 100%;
-    padding-left: 0px !important;
-    position: relative;
-    z-index: 999;
-    top: 50px;
-}
-
 #app-wrapper[device-type="phone"].hoe-hide-lpanel #left-panel {
     display: none;
-}
-
-#app-wrapper[device-type="phone"].hoe-hide-lpanel .right-header {
-    margin-left: 0px;
-}
-
-#app-wrapper[device-type="phone"] .right-header {
-    margin-left: 0px;
 }
 
 #app-wrapper[device-type="phone"] #left-panel {
@@ -681,14 +648,6 @@ body {
 
 #app-wrapper[device-type="phone"] .left-header>.hoe-sidebar-toggle>a {
     display: block;
-}
-
-#app-wrapper[device-type="phone"] #app-header>.right-header .hoe-sidebar-toggle a:after {
-    display: none !important;
-}
-
-#app-wrapper[device-type="desktop"] .left-header .hoe-sidebar-toggle a:after {
-    display: none !important;
 }
 
 #app-wrapper[device-type="tablet"] .left-header .hoe-sidebar-toggle a:after {
@@ -737,66 +696,6 @@ body {
 #app-wrapper[device-type="phone"] #app-container[panel-effect="push"] #main-content {
     margin-left: 230px;
     margin-right: -230px;
-}
-
-#app-wrapper[device-type="phone"].hoe-hide-lpanel #app-header[panel-effect="shrink"] .right-header[hoe-position-type="relative"] {
-    margin-left: 0px;
-    padding-right: 0;
-}
-
-#app-wrapper[device-type="phone"].hoe-hide-lpanel #app-header[panel-effect="shrink"] .right-header[hoe-position-type="fixed"] {
-    margin-left: 0px;
-    padding-right: 0;
-}
-
-#app-wrapper[device-type="phone"] #app-header[panel-effect="shrink"] .right-header[hoe-position-type="relative"] {
-    margin-left: 0px;
-    padding-right: 0;
-}
-
-#app-wrapper[device-type="phone"] #app-header[panel-effect="shrink"] .right-header[hoe-position-type="fixed"] {
-    margin-left: 0px;
-    padding-right: 0;
-}
-
-#app-wrapper[device-type="phone"].hoe-hide-lpanel #app-header[panel-effect="overlay"] .right-header[hoe-position-type="relative"] {
-    margin-left: 0px;
-    padding-right: 0;
-}
-
-#app-wrapper[device-type="phone"].hoe-hide-lpanel #app-header[panel-effect="overlay"] .right-header[hoe-position-type="fixed"] {
-    margin-left: 0px;
-    padding-right: 0;
-}
-
-#app-wrapper[device-type="phone"]#app-header[panel-effect="overlay"] .right-header[hoe-position-type="relative"] {
-    margin-left: 0px;
-    padding-right: 0;
-}
-
-#app-wrapper[device-type="phone"] #app-header[panel-effect="overlay"] .right-header[hoe-position-type="fixed"] {
-    margin-left: 0px;
-    padding-right: 0;
-}
-
-#app-wrapper[device-type="phone"].hoe-hide-lpanel #app-header[panel-effect="push"] .right-header[hoe-position-type="relative"] {
-    margin-left: 0px;
-    padding-right: 0;
-}
-
-#app-wrapper[device-type="phone"].hoe-hide-lpanel #app-header[panel-effect="push"] .right-header[hoe-position-type="fixed"] {
-    margin-left: 0px;
-    padding-right: 0;
-}
-
-#app-wrapper[device-type="phone"] #app-header[panel-effect="push"] .right-header[hoe-position-type="relative"] {
-    margin-left: 0px;
-    padding-right: 0;
-}
-
-#app-wrapper[device-type="phone"] #app-header[panel-effect="push"] .right-header[hoe-position-type="fixed"] {
-    margin-left: 0px;
-    padding-right: 0;
 }
 
 .page-header {

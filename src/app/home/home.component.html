@@ -1,15 +1,32 @@
 <div id="app-wrapper" class="hoe-hide-lpanel" device-type="desktop">
     <header id="app-header" panel-effect="shrink" class="">
         <div class="right-header" hoe-position-type="relative">
-            <!-- <span class="hoe-sidebar-toggle"><a href="#"></a></span> -->
-            <ul class="left-navbar">
-                <li>
-                    <form method="post" class="hoe-searchbar">
-                        <input type="text" placeholder="Search..." name="keyword" class="form-control">
-                        <span class="search-icon"><i class="fa fa-search"></i></span>
-                    </form>
-                </li>
-            </ul>
+            <div class="collapse navbar-collapse">
+                <ul class="left-navbar nav navbar-nav">
+                    <li>
+                        <form method="post" class="searchbar navbar-form navbar-left">
+                            <div class="form-group">
+                                <input type="text" placeholder="Search by keywords..." name="keyword" class="form-control">
+                                <span class="search-icon form-control-feedback"><i class="fa fa-search"></i></span>
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Link</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
     </header>
     <div id="app-container" hoe-lpanel-effect="shrink" class="">
@@ -17,7 +34,6 @@
             <ul class="nav panel-list">
                 <li class="logo">
                     <!-- <img src="../../assets/ResMed_logo.png" alt=""> -->
-                    <span class="hoe-sidebar-toggle"><a href="#"></a></span>
                 </li>
                 <li class="nav-level">
                     <span class="menu-text">Navigation</span>
